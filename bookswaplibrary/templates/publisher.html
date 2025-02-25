@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Publishers</h3>
+<div class="form-container">
+<form class="form" action="/publisher" method="POST">
+<table>
+{% csrf_token %}
+{{ publisherform.as_table }}
+<tr>
+<td></td>
+<td class="floatright"><input type="submit" value="add publisher"></td>
+</tr>
+</table>
+</form>
+</div>
+<ul class="list-group mt-2">
+{% for publisher in publishers%}
+    <li class="list-group-item">{{ publisher.publisher }} <a href='{{ publisher.external_link }}'>publisher webpage</a></li>
+{% endfor %}
+</ul>
+{% endblock %}

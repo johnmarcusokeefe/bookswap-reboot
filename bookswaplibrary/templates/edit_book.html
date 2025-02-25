@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+ {% if member %}
+ 
+  <div class="mt-2 bg-light p-2" >
+  <form action="/edit_book/{{ book_id }}" method="post" enctype="multipart/form-data">
+  <table class="new-book-table">
+    {% csrf_token %}
+    {{ edit_book_form }}
+    <tr>
+    <th></th>
+    <td><input type="submit" value="Submit"></td>
+    </tr>
+    </table>
+  </form>
+  </div>
+  {% endif %}
+
+{% endblock %}

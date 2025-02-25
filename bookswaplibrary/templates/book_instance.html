@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+ {% if member %}
+ 
+<h2 class="floatleft">Book Copy Images</h2>
+    <button class="btn btn-primary mt-2 mb-5 floatright" type="button" data-toggle="collapse" data-target="#collapseImageForm" aria-expanded="false" aria-controls="collapseForm">
+    add image
+    </button>
+    <div class="clearboth"></div>
+    <div class="floatright">ID: {{ book_instance.id }}</div> 
+    <div class="floatleft">Title: <a href="/book/{{ book_instance.book.id }}">{{ book_instance.book.title }}</a></div>
+    <div class="clearboth"></div> 
+    <div class="collapse mb-2" id="collapseImageForm">
+    <form class="p-3 bg-light" action="/book_instance/{{ book_instance.id }}" method="post" enctype="multipart/form-data">
+        <table class="new-book-table">
+        {% csrf_token %}
+        {{ book_instance_image_form.as_table }}
+        <tr> 
+        <th></th>
+        <td>
+        <input type="submit" value="upload image">
+        </td>
+        </tr>
+      </table>
+   </form>
+   </div>
+  <div class="flex-container mt-2">
+  {% for image in book_instance.images.all %}
+      <div>
+      <img src="/{{ image.image }}" width=150><br>
+      <label>{{ image.description}}</label><br>
+      <form action="{{ book_instance.id}}" method="POST"> 
+      {% csrf_token %}
+      <input type="text" name="image_id" value="{{ image.id }}" hidden>
+      <input type="submit" value="delete">
+      </form>
+      </div>
+  {% endfor %}
+  </div>
+{% endif %}
+
+{% endblock %}

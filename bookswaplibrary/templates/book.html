@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+ {% if member %}
+
+
+  <table class="book-table mb-2">
+  <tr>
+  <td colspan="3"><h2>Book Detail</h2></td>
+  <td colspan="3"><h2>{{user}}</h2></td>
+  <td>
+  <form class="floatright mt-2" action="/edit_book" method="post">
+    {% csrf_token %}
+    <input type="text" name="book_id" value="{{ book.0.id }}" hidden>
+    <button class="input-button">edit</button>
+</form>   
+  </td>
+  </tr>
+  <tr>
+        <td>ID: {{ book.0.id }}</td>
+        <td colspan="3">Title: {{ book.0.title }}</td>
+        </tr>
+        <tr>
+        <td>Author: {{ book.0.author__name }}</td>
+        <td>ISBN: {{ book.0.isbn }}</td>
+        <td>Genre: {{ book.0.genre__genre }}</td>
+        <td>Publisher: {{ book.0.publisher__publisher }}</td>
+        </tr>
+        <tr>
+        <td colspan="4">Summary: {{ book.0.summary }}</td>
+        </tr>
+     </table>   
+ <h2>Available copies: {{ book.0.title }}</h2>
+ {% for copy in book_copies.all %}
+ <div class="bg-light mb-2"> 
+    <table class="book-copies">
+    <tr>
+    <th>Owner</th>
+    <th>Location</th>
+    <th>Gallery</th>
+    <th>Condition</th>
+    <th>Status</th>
+    </tr>
+    <tr>
+    <td>{{ copy.owner__member__email }}</td>
+    <td>{{ copy.owner__address__suburb }}</td>
+    <td><a href="/book_instance/{{ copy.id }}">Images</a></td>
+    <td>{{ copy.condition }}</td>
+    {% if copy.status == "available" %}
+        {% if user.username == copy.owner__member__email %}
+            <td>available</td>
+        {% else %}
+            <td><a href="/swap/{{ book.0.id }}/{{ copy.id }}">available</a></td>
+        {% endif %}
+    {% else %}
+        <td>{{ copy.status }}</td>
+    {% endif %}
+    </tr>
+    </table>
+ </div>
+ {% endfor %}
+  
+{% endif %}
+
+{% endblock %}

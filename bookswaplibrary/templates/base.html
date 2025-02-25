@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% block title %}<title>Local Library</title>{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="{% static 'style.css' %}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+
+<div class="row border-bottom pt-3 pb-3">
+<div class="title col-3"><a href="{% url 'index' %}">Bookswap</a></div>
+<!-- <p>{{ groups.0 }}</p> -->
+{% if user.is_authenticated %}
+<div class="logout-form col-9">
+<form class="login-form mt-3 floatright" action="/logout" method="post">
+    <label class="user">Hello! {{ user }}</label>
+    {% csrf_token %}
+    <input type="submit" value="Logout">
+</form>
+</div>
+{% else %}
+<form class="login-form col-9 mt-3" action="/login" method="post">
+<table class="login-form-table">
+    {% csrf_token %}  
+    <tr>
+    <td><label>email:</label></td>
+    <td><input type="text" name="username"></td>
+    </tr>
+    <tr>
+    <td><label>password:</label></td>
+    <td><input type="password" name="password"></td>
+    </tr>
+    <tr>
+    <td></td>
+    <td><button class="login-button floatright" type="submit">Register</button>
+    <button  class="login-button floatright" type="submit">Login</button></td>
+    </tr>
+</table>
+</form>
+{% endif %}
+<!-- 
+{% if message != "none" %}
+    <p>{{ message }}</p>
+{% endif %}
+ -->
+</div>
+
+<div class="row left-col">
+  <div class="col-3 border-end">
+  {% block sidebar %}
+  <ul>     
+  
+  {% if user.is_authenticated %}
+  <li class="mb-2"><a href="{% url 'profile' %}">{{ user.first_name }}'s Page</a></li>
+  <li><a href="{% url 'catalogue' %}">catalogue</a></li>
+  <li><a href="{% url 'members' %}">members</a></li>
+  <li><a href="{% url 'author' %}">authors</a></li>
+  <li><a href="{% url 'publisher' %}">publishers</a></li>
+  </ul>
+  {% else %}
+  <li><a href="{% url 'catalogue' %}">catalogue</a></li>
+  <p class="empty-left"></p>
+  {% endif %}
+  {% endblock %}
+  </div>
+  <div class="col-9">
+      {% block content %}
+      <!-- default content text (typically empty) -->
+      {% endblock %}
+  </div>
+</div>
+</div>
+</body>
+</html>

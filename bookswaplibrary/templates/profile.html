@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="banner mb-2">
+<h2 class="floatleft">Welcome: {{ member_details.first_name }}</h2>
+  <button class="btn btn-primary mt-2 floatright" type="button" data-toggle="collapse"
+       data-target="#collapseForm" aria-expanded="false" aria-controls="collapseForm">
+    add book
+  </button>
+</div>
+
+
+<div class="container">  
+<div class="row">
+<div class="col-3">
+    <div class="mb-2"><img src="{{ member_object.0.image }}" width="100"></div>
+</div>
+<div class="col-9">
+    <h5><b>Full Name:</b> {{ member_details.first_name }} {{ member_details.last_name }}</h5>
+    <h5><b>Email:</b> {{ member_details.email }}</h5>
+    <h5><b>Date Joined:</b> {{ member_details.date_joined }}</h5>
+    {% if member_object.0.address %}
+    <h5><b>Address:</b> {{ member_object.0.address }}</h5>
+    {% else %}
+    <form class="new-book-form" action="/profile" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ membership_form.as_div }}
+    <input type="file" name="image" accept="image/png, image/jpeg"><br>
+    <input type="submit">
+</form>
+{% endif %}
+</div>
+</div>
+</div>
+
+
+
+{% if member_exists %}
+<div class="collapse mb-2" id="collapseForm">
+  <form class="h5-3 bg-light" action="/profile" method="post">
+   <table class="new-book-table">
+    {% csrf_token %}
+    {{ new_book_instance_form }}
+    <tr>
+    <th></th>
+    <td>
+    <input type="submit" value="Submit">
+    </td>
+    </tr>
+    </table>
+  </form>
+</div>
+ 
+  
+{% endif %}
+  
+{% if member_book_list %}
+<div class="container pt-2">
+<h3 class="mt-5 pb-2 border-bottom">Bookshelf</h3>
+
+        {% for book in member_book_list %}    
+        <div class="row mb-2 bg-light h5-2">
+         <div class="col-2">
+            <img src='{{ book.book__image }}' width="100"><br>
+         </div>
+        <div class="col-10">    
+    <table class="book-copies">
+    <tr>
+    <td colspan="4">Book Title: {{ book.book__title }}</td>
+    </tr>
+    <tr>
+    <th>Book Images</th><th>Condition</th><th>Status</th><th>Exchange Preference</th>
+    </tr>
+    <tr>
+    <td><a href="/book_instance/{{ book.id }}">Book Images</a></td>
+    <td>{{ book.condition }}</td>
+    <td>{{ book.status }}</td>
+    <td>{{ book.exchange_preference }}</td>
+    </tr>
+    </table>
+<!-- edit button with no argument calls editable form -->               
+<form class="floatright mt-2" action="/edit_book_instance" method="post">
+    {% csrf_token %}
+    <input type="text" name="book_id" value="{{ book.id }}" hidden>
+    <button class="input-button">edit</button>
+</form>
+</div>
+        </div>
+        {% endfor %}
+{% else %}
+   <h3>no books added yet</h3>
+</div>
+  
+
+  
+{% endif %}
+{% endblock %}

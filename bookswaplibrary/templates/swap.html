@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="p-1">Swap</h2>
+<p>book id: {{ book_instance_id }}</p>
+
+<p>the book owner will be notified and a message will be sent back if accepted</p>
+
+<p>Title: {{ book_instance.0.book__title }}</p>
+<p>Email of owner: {{ book_instance.0.owner__member__username }}</p>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,162 @@
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+.banner {
+    height: 80px;
+    border-bottom: 1px solid gray;
+}
+.book-copies {
+    width: 100%;
+}
+.book-copies td {
+    padding: 10px;
+    border: 1px dotted gray;
+}
+.book-copies th {
+    text-align: center;
+    border: 1px dotted gray;
+}
+.book-cover-image {
+    float: left;
+}
+.book-table td {
+    border: 1px solid gray;
+}
+.clearboth {
+    clear: both;
+}
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: lightgray;
+}
+
+.flex-container > div {
+  background-color: #f1f1f1;
+  margin: 10px;
+  padding: 10px;
+}
+.form-container {
+    width: 100%; 
+}
+.form {
+     width: 100%;
+     border: 1px solid gray;
+     border-radius: 3px;
+     padding: 30px;
+     margin: auto;
+}
+.form input {
+    width: 450px;
+}
+.form label {
+    width: 150px;
+}
+.form input[type="submit"] {
+    width: initial;
+}
+.floatright {
+    float: right;
+}
+.floatleft {
+    float: left;
+}
+.input-button {
+    border: 1px solid gray;
+    border-radius: 3px;
+}
+.empty-left {
+    height: 100vh;
+}
+.h30 {
+    height: 30px;
+}
+.login-button {
+    margin-left: 5px;
+    font-size: 10pt;
+    border-radius: 3px;
+    border: 1px gray solid;
+    color: gray;
+}
+.login-form input {
+    width: 250px;
+    height: 25px;
+    border: 1px gray solid;
+}
+.login-form label {
+   font-size: 10pt;
+   color: gray;
+}
+.logout-form form input {
+    width: 80px;
+    font-size: 10pt;
+    border: 1px solid gray;
+}
+.login-form-table {
+    display: block;
+    float: right;
+}
+.new-book-table {
+   width: 100%;
+}
+.new-book-table th {
+   width: 10%;
+}
+.new-book-table input {
+   width: 80%;
+   margin-bottom: 10px;
+}
+.new-book-table select {
+   width: 80%;
+   margin-bottom: 10px;
+}
+.new-book-table textarea {
+   width: 80%;
+   margin-bottom: 10px;
+}
+
+.title {
+    float: left;
+    width: 30%;
+    font-size: 36pt;
+}
+.registration-form {
+    position: relative;
+    width: 60%;
+    margin: auto;
+    border: 1px dotted gray;
+     padding: 10px;
+}
+.registration-form label {
+    width: 29%;
+}
+.registration-form input {
+    width: 70%;
+    margin-top: 10px;
+}
+.registration-form input {
+    width: 70%;
+}
+.stats div {
+    float: left;
+    width: 20%;
+}
+.stats {
+    clear: both;
+}
+.vh-10 {
+    heigth: 10px;
+    clear: both;
+}
+.user {
+   margin-right: 20px;
+}
+
+.left-col {
+    height: 100vh;
+}

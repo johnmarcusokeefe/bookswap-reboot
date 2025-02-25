@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3 class="mt-3">Add Author Form</h3>
+<div class="form-container">
+<form class="form" action="/author" method="POST">
+<table>
+   {% csrf_token %}
+   {{ authorform.as_table }}
+    <tr>
+    <td></td>
+    <td class="floatright"><input type="submit" value="add author"></td>
+    </tr> 
+</table>
+ </form>
+ </div>
+<h3 class="mt-3">Authors</h3>
+<ul class="list-group mt-2">
+{% for author in authors %}
+    <li class="list-group-item">{{ author }}</li>
+{% endfor %}
+</ul>
+{% endblock %}

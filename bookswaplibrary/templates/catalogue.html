@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="banner">
+<h2 class="p-1 floatleft">Catalogue</h2>
+ {% if member %}
+  <button class="btn btn-primary mt-2 mb-2 floatright" type="button" data-toggle="collapse" data-target="#addbook" aria-expanded="false" aria-controls="addbook">
+    add book
+  </button>
+</div>
+
+  <div class="collapse mt-2 bg-light p-2" id="addbook">
+  <form action="/catalogue" method="post" enctype="multipart/form-data">
+  <table class="new-book-table">
+    {% csrf_token %}
+    {{ new_book_form }}
+    <tr>
+    <th></th>
+    <td><input type="submit" value="Submit"></td>
+    </tr>
+    </table>
+  </form>
+  </div>
+  {% endif %}
+<div class="clearboth"></div
+<div class="p-3 mt-2">
+{% for book in book_list %}
+
+<div class="row mb-2 bg-light mt-2">
+   <div class="col-3">
+    <img class="book-cover-image" src='{{ book.image }}' width="100"> 
+    </div>
+    <div class="col-9">
+     <p>Title: {{ book.title }}</p>
+     {% for author in book.author.all %}
+        <p>Author: {{ author }}</p>
+     {% endfor %}
+    <a href="{% url 'book' book.id %}">further details</a>
+    </div>
+</div>
+
+{% endfor %}
+</div>
+
+{% endblock %}
